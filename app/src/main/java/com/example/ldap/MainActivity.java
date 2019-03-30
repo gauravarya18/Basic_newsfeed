@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ListView lvRss;
     ArrayList<String> titles;
     ArrayList<String> links;
+    ArrayList<String> a1;
 
 
     @Override
@@ -151,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
                     eventType = xpp.next(); //move to next element
                 }
-
+                a1=new ArrayList<String>(titles);
+                Log.d("sur",titles.toString());
 
             }
             catch (MalformedURLException e)
@@ -173,10 +176,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Exception s) {
             super.onPostExecute(s);
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            intent.putExtra("a1", a1);
+            startActivity(intent);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, titles);
-
-            lvRss.setAdapter(adapter);
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, titles);
+//
+//            lvRss.setAdapter(adapter);
 
 
             progressDialog.dismiss();
